@@ -32,8 +32,8 @@ const Register = () => {
       setTimeout(() => {
         naviget("/VerifyOTP");
       }, 2000);
-    } catch (err) {
-      alert(err.response.data.message);
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Error");
     }
   };
 

@@ -1,6 +1,8 @@
 
 import { useState } from "react";
 import API from "../../services/api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SendMoney = () => {
   const [data, setData] = useState({
@@ -20,12 +22,17 @@ const SendMoney = () => {
         amount: Number(data.amount)
       });
 
-      alert(res.data.message);
-
+      
+      toast.success("Money send successful", {
+        autoClose: 2000,
+      });
+      setTimeout(() => {
+        navigate("send");
+      }, 2000);
       
 
     } catch (error) {
-      alert(error.response?.data?.message || "Error");
+      toast.error(error.response?.data?.message || "Error");
     }
   };
 
@@ -75,6 +82,17 @@ const SendMoney = () => {
         </button>
 
       </div>
+
+     {/* Toast Container */}
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        theme="dark"
+      />
 
     </div>
   );

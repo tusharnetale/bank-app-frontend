@@ -1,11 +1,12 @@
 import { useState } from "react";
 import API from "../../services/api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Deposit = () => {
-
   const [data, setData] = useState({
     amount: "",
-    transactionPin: ""
+    transactionPin: "",
   });
 
   const handleChange = (e) => {
@@ -16,26 +17,27 @@ const Deposit = () => {
     try {
       const res = await API.post("/transaction/deposit", {
         ...data,
-        amount: Number(data.amount)
+        amount: Number(data.amount),
       });
 
-      alert(res.data.message);
-
+      
+      toast.success("Deposit successful", {
+        autoClose: 2000,
+      });
+      setTimeout(() => {
+        navigate("deposit");
+      }, 2000);
     } catch (error) {
-      alert(error.response?.data?.message || "Error");
+      toast.error(error.response?.data?.message || "Error");
     }
   };
 
   return (
     <div className="flex justify-center items-center mt-6 px-4">
-      
       <div className="glass-card p-6 md:p-8 w-full max-w-200">
+        <h2 className="section-title text-center">Deposit Money</h2>
 
-        <h2 className="section-title text-center">
-          Deposit Money
-        </h2>
-
-         {/* Amount */}
+        {/* Amount */}
         <label className="text-sm text-gray-300">Amount</label>
         <input
           name="amount"
@@ -44,7 +46,7 @@ const Deposit = () => {
           className="input-field mb-4 mt-1"
         />
 
-       <label className="text-sm text-gray-300">Transaction PIN</label>
+        <label className="text-sm text-gray-300">Transaction PIN</label>
         <input
           name="transactionPin"
           onChange={handleChange}
@@ -60,9 +62,18 @@ const Deposit = () => {
         >
           Deposit
         </button>
-
       </div>
 
+      {/* Toast Container */}
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 };

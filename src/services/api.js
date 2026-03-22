@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://bank-app-s3kr.onrender.com/api",
+  baseURL: "https://bank-app-s3kr.onrender.com",
 });
 
 // token automatically attach hoga

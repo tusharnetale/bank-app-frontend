@@ -22,7 +22,7 @@ const Register = () => {
 
   const handleSubmit = async () => {
     try {
-      const res = await API.post("/auth/register", form);
+      const res = await API.post("/api/auth/register", form);
       console.log(res.data);
 
       toast.success("OTP sent to email", {
